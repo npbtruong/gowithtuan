@@ -1,10 +1,8 @@
-//go:build ignore
-
-package main
+package array
 
 import "fmt"
 
-func main() {
+func Array() {
 	var numbers [5](float64)
 	numbers[3] = 5.5
 
