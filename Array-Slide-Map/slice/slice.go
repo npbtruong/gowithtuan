@@ -57,6 +57,8 @@ func Slice() {
 	// tạo subslice từ slice cha
 	subSlice := slice1[1:3]
 	fmt.Println(subSlice)// trên  0 1 dưới 1 2 3 => [2 3]
+	fmt.Println(cap(subSlice)) // gốc 4 ô cắt từ ô 1 tức mất ô 0 => cap 3
 	fmt.Println(slice1[:2])// tức trên 0 dưới 2 => [1 2]
-	fmt.Println(slice1[:2])// tức trên 0 dưới 2 => [1 2]
+	fmt.Println(slice1[2:])// tức trên 2 lấy phần còn lại đằng sau 2 => [3 4]
+
 }
