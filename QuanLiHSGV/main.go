@@ -5,6 +5,7 @@ import (
 
 	"go/quanli/input"
 	"go/quanli/student"
+	"go/quanli/utils"
 )
 
 const menu = `
@@ -20,7 +21,7 @@ func main() {
 		case 1:
 			student.Menu()
 		case 2:
-			fmt.Println("Chuc nang quan ly giang vien dang phat trien.")
+			fmt.Println(utils.ReadInput("Nhap chu:"))
 		case 3:
 			fmt.Println("Tam biet!")
 			return
