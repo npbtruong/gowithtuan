@@ -98,7 +98,7 @@ func edit() {
 		}
 	}
 	fmt.Println("Chưa có Giảng viên Id này!")
-	return
+
 }
 
 func list() {
