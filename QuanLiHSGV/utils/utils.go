@@ -50,6 +50,28 @@ func PositiveFloat(promt string) float64 {
 	}
 }
 
+func GetOptionalString(promt string, oldValue string) string {
+
+	input := ReadInput(promt)
+
+	if input != "" {
+		return input
+	}
+	return oldValue
+
+}
+
+func OptionalPositiveFloat(promt string, oldValue float64) float64 {
+
+	input := ReadInput(promt)
+	value, err := strconv.ParseFloat(input, 64)
+	if err == nil && value > 0 {
+		return value
+	}
+	return oldValue
+
+}
+
 func ClearScreen() {
 	var cmd *exec.Cmd
 	switch runtime.GOOS {
@@ -64,10 +86,8 @@ func ClearScreen() {
 	}
 }
 
-
-
 // HasId: interface làm constraint(ràng buộc) , kiểu nào có GetId() int thì tự động thỏa (không cần implements).
-type HasId interface{
+type HasId interface {
 	GetId() int
 }
 

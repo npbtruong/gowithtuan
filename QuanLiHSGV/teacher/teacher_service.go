@@ -69,10 +69,42 @@ func add() {
 	fmt.Println("Thêm thành công")
 }
 func remove() {}
-func edit()   {}
+
+func edit() {
+
+	fmt.Println("-=-=-=-=-=-=-=-= Sữa Thông tin giảng viên =-=-=-=-=-=-=")
+
+	id := utils.PositiveNumber("Nhập ID giảng viên cần sữa:")
+
+	for index, teacher := range list_teacher {
+		if teacher.GetId() == id {
+			fmt.Println("Nhap thong tin mới (Ấn Enter để giử giá trị củ)")
+
+			name := utils.GetOptionalString(fmt.Sprintf("Nhập Tên:(%s)", teacher.Name), teacher.Name)
+			subject := utils.GetOptionalString(fmt.Sprintf("Nhập môn dạy:(%s)", teacher.Subject), teacher.Subject)
+			baseSalary := utils.OptionalPositiveFloat(fmt.Sprintf("Nhập lương cơ bản:(%.2f)", teacher.BaseSalary), teacher.BaseSalary)
+			bonus := utils.OptionalPositiveFloat(fmt.Sprintf("Nhập thưởng:(%.2f)", teacher.Bonus), teacher.Bonus)
+
+			list_teacher[index] = Teacher{
+				Id:         id,
+				Name:       name,
+				Subject:    subject,
+				BaseSalary: baseSalary,
+				Bonus:      bonus,
+			}
+
+			fmt.Println("CAP NHAT THANH CONG")
+			return
+		}
+	}
+	fmt.Println("Chưa có Giảng viên Id này!")
+	return
+}
+
 func list() {
 	for _, value := range list_teacher {
 		value.GetInfo()
 	}
 }
+
 func find() {}
