@@ -107,4 +107,17 @@ func list() {
 	}
 }
 
-func find() {}
+func find() {
+	fmt.Println("-=-=-=-=-=-=-=-= Tìm kiếm Thông tin giảng viên =-=-=-=-=-=-=")
+
+	id := utils.PositiveNumber("Nhập ID giảng viên cần tìm:")
+
+	for _,t := range list_teacher{
+		if (t.GetId() == id) {
+				fmt.Println("ĐÃ tìm thấy giảng viên")
+				t.GetInfo()
+				return
+		}
+	}
+		fmt.Println("X Không tìm thấy Thông tin giảng viên ID ")
+}

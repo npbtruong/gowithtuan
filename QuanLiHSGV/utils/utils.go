@@ -72,6 +72,17 @@ func OptionalPositiveFloat(promt string, oldValue float64) float64 {
 
 }
 
+func OptionalPositiveNumber(promt string, oldValue int) int {
+
+	input := ReadInput(promt)
+	value, err := strconv.Atoi(input)
+	if err == nil && value > 0 {
+		return value
+	}
+	return oldValue
+
+}
+
 func ClearScreen() {
 	var cmd *exec.Cmd
 	switch runtime.GOOS {
