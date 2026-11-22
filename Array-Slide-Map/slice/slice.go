@@ -52,7 +52,7 @@ func Slice() {
 	// gộp 2 slide ... là lấy tất cả
 	slice1 := []int{1, 2}
 	slice2 := []int{3, 4}
-	slice1 = append(slice1, slice2...)
+	slice1 = append(slice1, slice2...)// [1 2 3 4]
 	fmt.Println(slice1)
 
 	// tạo subslice từ slice cha

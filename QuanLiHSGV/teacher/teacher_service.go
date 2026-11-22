@@ -68,7 +68,23 @@ func add() {
 
 	fmt.Println("Thêm thành công")
 }
-func remove() {}
+func remove() {
+	fmt.Println("-=-=-=-=-=-=-=-= Xóa Thông tin giảng viên =-=-=-=-=-=-=")
+
+	id := utils.PositiveNumber("Nhập ID giảng viên cần Xóa:")
+	
+	for index,t := range list_teacher{
+		if (t.GetId() == id) {
+			//[ 1 2 3 4] [trên : dưới]
+			list_front := list_teacher [:index]
+			list_back := list_teacher[index+1:]
+			list_teacher = append(list_front,list_back...)
+			fmt.Println("XÓA Thành Công")
+			return
+		}
+	}
+	fmt.Printf("Nhân viên id %d không tồn tại",id)
+}
 
 func edit() {
 
