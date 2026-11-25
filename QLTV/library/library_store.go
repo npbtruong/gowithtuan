@@ -6,13 +6,15 @@ import (
 )
 
 type Library struct {
-	book map[string]models.Book
+	book     map[string]models.Book
+	borrower map[string]models.Borrower
 }
 
 // construct
 func NewLibrary() *Library {
 	return &Library{
-		book: make(map[string]models.Book),
+		book:     make(map[string]models.Book),
+		borrower: make(map[string]models.Borrower),
 	}
 }
 
@@ -46,4 +48,27 @@ func (lib *Library) ListBooksStore() []models.Book {
 	}
 
 	return books
+}
+
+func (lib *Library) AddBorrowerStore(id, name, email string) error {
+
+	if _, exist := lib.borrower[id]; exist {
+		return fmt.Errorf("Người mượn với ID: %s đã tồn tại", id)
+	}
+
+	lib.borrower[id] = models.Borrower{
+		Id:    id,
+		Name:  name,
+		Email: email,
+	}
+
+	return nil
+}
+
+func (lib *Library) ListBorrowersStore() []models.Borrower {
+	borrowers := make([]models.Borrower, 0, len(lib.borrower))
+	for _, borrower := range lib.borrower {
+		borrowers = append(borrowers, borrower)
+	}
+	return borrowers
 }

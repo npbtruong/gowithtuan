@@ -23,12 +23,12 @@ func AddBook(lib *Library) error {
 	title := utils.GetNonEmptyString("Nhập tên sách: ")
 	author := utils.GetNonEmptyString("Nhập tên tác giả: ")
 
-	if err := lib.AddBookStore(id, title, author); err != nil{
+	if err := lib.AddBookStore(id, title, author); err != nil {
 		return err
 	}
 
 	fmt.Printf("Thêm sách thành công ! Id: %s \n", id)
-	
+
 	return nil
 }
 
@@ -39,21 +39,41 @@ func ListBook(lib *Library) error {
 		return nil
 	}
 
-	for _,book := range books {
+	for _, book := range books {
 		status := "còn"
 		if book.IsBorrowed {
 			status = "Bị mượn"
 		}
-		fmt.Printf("Id:%s , Tác giả:%s , Tiêu đề:%s , Trạng Thái:%s \n",book.Id,book.Author,book.Title,status)
+		fmt.Printf("Id:%s , Tác giả:%s , Tiêu đề:%s , Trạng Thái:%s \n", book.Id, book.Author, book.Title, status)
 	}
 	return nil
 }
 
-func AddBorrower() error {
+func AddBorrower(lib *Library) error {
+
+	id := utils.GenerateUuid()
+	name := utils.GetNonEmptyString("Nhập tên người mượn: ")
+	email := utils.GetNonEmptyString("Nhập email người mượn: ")
+
+	if err := lib.AddBorrowerStore(id, name, email); err != nil {
+		return err
+	}
+
+	fmt.Printf("Thêm người mượn thành công ! Id: %s \n", id)
+
 	return nil
 }
 
-func ListBorrower() error {
+func ListBorrower(lib *Library) error {
+	borrowers := lib.ListBorrowersStore()
+	if len(borrowers) == 0 {
+		fmt.Println("Chưa có người mượn sách , vui lòng thêm người mượn!!")
+		return nil
+	}
+
+	for _, borrower := range borrowers {
+		fmt.Printf("Id:%s , Tên:%s , Email:%s \n", borrower.Id, borrower.Name, borrower.Email)
+	}
 	return nil
 }
 
