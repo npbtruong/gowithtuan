@@ -31,3 +31,19 @@ func (lib *Library) AddBookStore(id, title, author string) error {
 
 	return nil
 }
+
+// map
+// func (lib *Library) ListBooksStore() map[string]models.Book {
+// 	return lib.book
+// }
+
+// slide để có hổ trợ sort/search
+func (lib *Library) ListBooksStore() []models.Book {
+
+	books := make([]models.Book, 0, len(lib.book))
+	for _, book := range lib.book {
+		books = append(books, book)
+	}
+
+	return books
+}

@@ -35,7 +35,7 @@ func main() {
 
 		case 2:
 			fmt.Println("==========DANH SÁCH SÁCH==============")
-			if err := library.ListBook(); err != nil {
+			if err := library.ListBook(lib); err != nil {
 				fmt.Printf(" Lỗi hiện danh sách sách: %v\n", err)
 			}
 

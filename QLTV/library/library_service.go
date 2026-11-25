@@ -27,13 +27,25 @@ func AddBook(lib *Library) error {
 		return err
 	}
 
-	fmt.Printf("Thêm sách thành công ! Id: %s", id)
-	fmt.Println(lib.book)
-
+	fmt.Printf("Thêm sách thành công ! Id: %s \n", id)
+	
 	return nil
 }
 
-func ListBook() error {
+func ListBook(lib *Library) error {
+	books := lib.ListBooksStore()
+	if len(books) == 0 {
+		fmt.Println("Thư viện chưa có sách , vui lòng thêm sách!!")
+		return nil
+	}
+
+	for _,book := range books {
+		status := "còn"
+		if book.IsBorrowed {
+			status = "Bị mượn"
+		}
+		fmt.Printf("Id:%s , Tác giả:%s , Tiêu đề:%s , Trạng Thái:%s \n",book.Id,book.Author,book.Title,status)
+	}
 	return nil
 }
 
