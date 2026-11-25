@@ -8,7 +8,12 @@ import (
 	"runtime"
 	"strconv"
 	"strings"
+	"uuid"
 )
+
+func GenerateUuid() string{
+	return uuid.New().String()
+}
 
 func ReadInput(promt string) string {
 	fmt.Print(promt)

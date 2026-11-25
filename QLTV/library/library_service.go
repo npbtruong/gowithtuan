@@ -1,5 +1,11 @@
 package library
 
+import (
+	"fmt"
+	"go/qltv/models"
+	"go/qltv/utils"
+)
+
 const menu = `
 📚 CHUONG QUAN LY THU VIEN
 1. Them sach
@@ -12,35 +18,52 @@ const menu = `
 8. Tim kiem sach
 9. Thoat`
 
+var listBook = make( map[string] models.Book )
 
-func AddBook() error{
+func AddBook() error {
+	id := utils.GenerateUuid()
+	title := utils.GetNonEmptyString("Nhập tên sách: ")
+	author := utils.GetNonEmptyString("Nhập tên tác giả: ")
+
+	new_book := models.Book{
+		Id: id,
+		Title: title,
+		Author: author,
+	}
+
+	listBook[id] = new_book
+
+	fmt.Println("Thêm sách thành công !!")
+
+	fmt.Println(listBook)
+	
 	return nil
 }
 
-func ListBook() error{
+func ListBook() error {
 	return nil
 }
 
-func AddBorrower() error{
+func AddBorrower() error {
 	return nil
 }
 
-func ListBorrower() error{
+func ListBorrower() error {
 	return nil
 }
 
-func BorrowBook() error{
+func BorrowBook() error {
 	return nil
 }
 
-func ListBorrowHistory() error{
+func ListBorrowHistory() error {
 	return nil
 }
 
-func ReturnBook() error{
+func ReturnBook() error {
 	return nil
 }
 
-func SearchBook() error{
+func SearchBook() error {
 	return nil
 }
