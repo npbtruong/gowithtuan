@@ -95,14 +95,25 @@ func BorrowBook(lib *Library) error {
 
 func ListBorrowHistory(lib *Library) error {
 
-	transactions := lib.ListTransactionStore()
+	borrowerId := utils.GetNonEmptyString("Nhập Id người mượn: ")
+
+	transactions := lib.ListTransactionByBorrowerStore(borrowerId)
+
+	if len(transactions) == 0 {
+		fmt.Println("Không có lịch sử mượn sách với borrowerId này!")
+		return nil
+	}
+
+	returnDate := "chưa trả"
 	for _, transaction := range transactions {
-		fmt.Printf("Id Giao Dịch: %s ; Id sách %s ; Id người mượn %s ; ngày mượn %v ; ngày trả %v",
+		if !transaction.ReturnDate.IsZero() {
+			returnDate = transaction.ReturnDate.Format("01-01-2001")
+		}
+		fmt.Printf("Giao Dịch: %s ;Sách: %s ;Ngày mượn: %s ;Ngày trả: %s",
 			transaction.TransactionId,
 			transaction.BookId,
-			transaction.BorrowerId,
-			transaction.BorrowDate,
-			transaction.ReturnDate)
+			transaction.BorrowDate.Format("01-01-2001"),
+			returnDate)
 	}
 
 	return nil
