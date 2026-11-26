@@ -53,13 +53,13 @@ func main() {
 
 		case 5:
 			fmt.Println("==========MƯỢN SÁCH==============")
-			if err := library.BorrowBook(); err != nil {
+			if err := library.BorrowBook(lib); err != nil {
 				fmt.Printf(" Lỗi mượn sách: %v\n", err)
 			}
 
 		case 6:
 			fmt.Println("===========LỊCH SỬ MƯỢN SÁCH=============")
-			if err := library.ListBorrowHistory(); err != nil {
+			if err := library.ListBorrowHistory(lib); err != nil {
 				fmt.Printf(" Lỗi hiện lịch sử mượn sách: %v\n", err)
 			}
 

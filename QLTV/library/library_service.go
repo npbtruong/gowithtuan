@@ -77,11 +77,34 @@ func ListBorrower(lib *Library) error {
 	return nil
 }
 
-func BorrowBook() error {
+func BorrowBook(lib *Library) error {
+
+	transactionId := utils.GenerateUuid()
+	bookId := utils.GetNonEmptyString("Nhập Id sách mượn: ")
+	borrowerId := utils.GetNonEmptyString("Nhập Id người mượn: ")
+
+	if err := lib.BorrowBookStore(transactionId, bookId, borrowerId); err != nil {
+		return err
+	}
+
+	fmt.Printf("Sách được mượn thành công ! Transaction Id: %s \n", transactionId)
+
 	return nil
+
 }
 
-func ListBorrowHistory() error {
+func ListBorrowHistory(lib *Library) error {
+
+	transactions := lib.ListTransactionStore()
+	for _, transaction := range transactions {
+		fmt.Printf("Id Giao Dịch: %s ; Id sách %s ; Id người mượn %s ; ngày mượn %v ; ngày trả %v",
+			transaction.TransactionId,
+			transaction.BookId,
+			transaction.BorrowerId,
+			transaction.BorrowDate,
+			transaction.ReturnDate)
+	}
+
 	return nil
 }
 
