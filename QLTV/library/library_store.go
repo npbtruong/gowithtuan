@@ -7,28 +7,28 @@ import (
 )
 
 type Library struct {
-	book        map[string]models.Book
-	borrower    map[string]models.Borrower
-	transaction map[string]models.Transaction
+	books        map[string]models.Book
+	borrowers    map[string]models.Borrower
+	transactions map[string]models.Transaction
 }
 
 // construct
 func NewLibrary() *Library {
 	return &Library{
-		book:        make(map[string]models.Book),
-		borrower:    make(map[string]models.Borrower),
-		transaction: make(map[string]models.Transaction),
+		books:        make(map[string]models.Book),
+		borrowers:    make(map[string]models.Borrower),
+		transactions: make(map[string]models.Transaction),
 	}
 }
 
 // khỏi tạo vùng nhớ 1 lần duy nhất ta dùng con trỏ đở  tốn ram dọn
 func (lib *Library) AddBookStore(id, title, author string) error {
 
-	if _, exist := lib.book[id]; exist {
+	if _, exist := lib.books[id]; exist {
 		return fmt.Errorf("Sách với ID: %s đã tồn tại", id)
 	}
 
-	lib.book[id] = models.Book{
+	lib.books[id] = models.Book{
 		Id:     id,
 		Title:  title,
 		Author: author,
@@ -45,8 +45,8 @@ func (lib *Library) AddBookStore(id, title, author string) error {
 // slide để có hổ trợ sort/search
 func (lib *Library) ListBooksStore() []models.Book {
 
-	books := make([]models.Book, 0, len(lib.book))
-	for _, book := range lib.book {
+	books := make([]models.Book, 0, len(lib.books))
+	for _, book := range lib.books {
 		books = append(books, book)
 	}
 
@@ -55,11 +55,11 @@ func (lib *Library) ListBooksStore() []models.Book {
 
 func (lib *Library) AddBorrowerStore(id, name, email string) error {
 
-	if _, exist := lib.borrower[id]; exist {
+	if _, exist := lib.borrowers[id]; exist {
 		return fmt.Errorf("Người mượn với ID: %s đã tồn tại", id)
 	}
 
-	lib.borrower[id] = models.Borrower{
+	lib.borrowers[id] = models.Borrower{
 		Id:    id,
 		Name:  name,
 		Email: email,
@@ -69,15 +69,15 @@ func (lib *Library) AddBorrowerStore(id, name, email string) error {
 }
 
 func (lib *Library) ListBorrowersStore() []models.Borrower {
-	borrowers := make([]models.Borrower, 0, len(lib.borrower))
-	for _, borrower := range lib.borrower {
+	borrowers := make([]models.Borrower, 0, len(lib.borrowers))
+	for _, borrower := range lib.borrowers {
 		borrowers = append(borrowers, borrower)
 	}
 	return borrowers
 }
 
 func (lib *Library) BorrowBookStore(transactionId, bookId, borrowerId string) error {
-	book, bookExist := lib.book[bookId]
+	book, bookExist := lib.books[bookId]
 	if !bookExist {
 		return fmt.Errorf("sach với ID %s không tồn tại", bookId)
 	}
@@ -86,18 +86,18 @@ func (lib *Library) BorrowBookStore(transactionId, bookId, borrowerId string) er
 		return fmt.Errorf("sach với ID %s đã bị mượn", bookId)
 	}
 
-	if _, borrowerExist := lib.borrower[borrowerId]; !borrowerExist {
+	if _, borrowerExist := lib.borrowers[borrowerId]; !borrowerExist {
 		return fmt.Errorf("Người mượn sách Id %s không tồn tại", borrowerId)
 	}
 
-	if _, transactionExist := lib.transaction[transactionId]; transactionExist {
+	if _, transactionExist := lib.transactions[transactionId]; transactionExist {
 		return fmt.Errorf("Transaction Id %s đã tồn tại", transactionId)
 	}
 
 	book.IsBorrowed = true
-	lib.book[bookId] = book
+	lib.books[bookId] = book
 
-	lib.transaction[transactionId] = models.Transaction{
+	lib.transactions[transactionId] = models.Transaction{
 		TransactionId: transactionId,
 		BookId:        bookId,
 		BorrowerId:    borrowerId,
@@ -108,8 +108,8 @@ func (lib *Library) BorrowBookStore(transactionId, bookId, borrowerId string) er
 }
 
 func (lib *Library) ListTransactionStore() []models.Transaction {
-	transactions := make([]models.Transaction, 0, len(lib.transaction))
-	for _, transaction := range lib.transaction {
+	transactions := make([]models.Transaction, 0, len(lib.transactions))
+	for _, transaction := range lib.transactions {
 		transactions = append(transactions, transaction)
 	}
 	return transactions

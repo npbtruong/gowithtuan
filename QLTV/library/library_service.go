@@ -108,10 +108,10 @@ func ListBorrowHistory(lib *Library) error {
 	return nil
 }
 
-func ReturnBook() error {
+func ReturnBook(lib *Library) error {
 	return nil
 }
 
-func SearchBook() error {
+func SearchBook(lib *Library) error {
 	return nil
 }

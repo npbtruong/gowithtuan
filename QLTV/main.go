@@ -65,13 +65,13 @@ func main() {
 
 		case 7:
 			fmt.Println("===========TRẢ SÁCH=============")
-			if err := library.ReturnBook(); err != nil {
+			if err := library.ReturnBook(lib); err != nil {
 				fmt.Printf(" Lỗi trả sach: %v\n", err)
 			}
 
 		case 8:
 			fmt.Println("===========TÌM KIẾM SÁCH=============")
-			if err := library.SearchBook(); err != nil {
+			if err := library.SearchBook(lib); err != nil {
 				fmt.Printf(" Lỗi tìm kiếm sách: %v\n", err)
 			}
 
