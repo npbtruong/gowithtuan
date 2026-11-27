@@ -132,5 +132,20 @@ func ReturnBook(lib *Library) error {
 }
 
 func SearchBook(lib *Library) error {
+	query := utils.GetNonEmptyString("Nhập từ khóa tìm kiếm sách : ")
+
+	books := lib.SearchBooksStore(query)
+	if len(books) == 0 {
+		fmt.Println("Không tìm ra sách !!")
+		return nil
+	}
+
+	for _, book := range books {
+		status := "còn"
+		if book.IsBorrowed {
+			status = "Bị mượn"
+		}
+		fmt.Printf("Id:%s , Tác giả:%s , Tiêu đề:%s , Trạng Thái:%s \n", book.Id, book.Author, book.Title, status)
+	}
 	return nil
 }

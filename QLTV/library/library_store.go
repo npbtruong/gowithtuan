@@ -3,6 +3,7 @@ package library
 import (
 	"fmt"
 	"go/qltv/models"
+	"strings"
 	"time"
 )
 
@@ -147,4 +148,15 @@ func (lib *Library) ReturnBookStore(transactionId string) error {
 	lib.transactions[transactionId] = transaction
 
 	return nil
+}
+
+func (lib *Library) SearchBooksStore(query string)[]models.Book{
+	query = strings.ToLower(query)
+	books := make([]models.Book,0)
+	for _,book := range lib.books{
+		if( strings.Contains(strings.ToLower(book.Title),query) || strings.Contains(strings.ToLower(book.Author),query) ){
+			books = append(books, book)
+		}
+	}
+	return books
 }
