@@ -117,10 +117,34 @@ func (lib *Library) ListTransactionByBorrowerStore(borrowerId string) []models.T
 	transactions := make([]models.Transaction, 0, len(lib.transactions))
 
 	for _, transaction := range lib.transactions {
-		if(transaction.BorrowerId == borrowerId){
+		if transaction.BorrowerId == borrowerId {
 			transactions = append(transactions, transaction)
 		}
 	}
 
 	return transactions
+}
+
+func (lib *Library) ReturnBookStore(transactionId string) error {
+	transaction, transactionExist := lib.transactions[transactionId]
+	if !transactionExist {
+		return fmt.Errorf("Transaction %s không tồn tại !!!", transactionId)
+	}
+
+	if !transaction.ReturnDate.IsZero() {
+		return fmt.Errorf("Sách đã được trả trước đó trong giao dịch %s !!!", transactionId)
+	}
+
+	book, bookExist := lib.books[transaction.BookId]
+	if !bookExist {
+		return fmt.Errorf("sach với ID %s không tồn tại", transaction.BookId)
+	}
+
+	book.IsBorrowed = false
+	lib.books[transaction.BookId] = book
+
+	transaction.ReturnDate = time.Now()
+	lib.transactions[transactionId] = transaction
+
+	return nil
 }

@@ -120,6 +120,14 @@ func ListBorrowHistory(lib *Library) error {
 }
 
 func ReturnBook(lib *Library) error {
+	transactionId := utils.GetNonEmptyString("Nhập Id Giao Dịch: ")
+
+	if err := lib.ReturnBookStore(transactionId); err != nil {
+		return err
+	}
+
+	fmt.Printf("Trả sách thành công thành công ! Id Giao dịch: %s \n", transactionId)
+
 	return nil
 }
 
