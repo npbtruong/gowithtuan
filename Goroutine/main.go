@@ -1,7 +1,10 @@
 package main
 
-import "go/goroutine/waitgroup"
+import (
+	"go/goroutine/channel"
+)
 
 func main() {
-	waitgroup.WaitGroup()
+	//waitgroup.WaitGroup()
+	channel.Channel()
 }
